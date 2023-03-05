@@ -1,0 +1,29 @@
+<div class="titleContainer">
+<!-- Title -->
+<h1 class="page-header">{{ header }}</h1>
+<br>
+<p>
+Welcome to the eBike Renting System! <br>
+
+<strong>It is very important that you log in.</strong> Otherwise the app is not behaving as it should be (renting/returning a bike will not work!)
+<br>
+<strong>Type in one of the usernames in the database. "userOne" and "userTwo" are available by default</strong>
+
+
+</p>
+
+</div>
+
+<div id="login-container">
+  <form (ngSubmit)="onSubmit()">
+
+    <div class="input-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your username</mat-label>
+          <input matInput placeholder="userOne" [formControl]="username" required>
+          <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+      <button id= "login-button" mat-raised-button color="warn" class="button" type="submit">Login</button>
+    </form>
+</div>

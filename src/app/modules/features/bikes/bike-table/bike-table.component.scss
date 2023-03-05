@@ -1,0 +1,11 @@
+.tableheader {
+    width: 250px;
+}
+
+.bike-details-row:hover {
+    background-color: lightblue;
+}
+
+.bike-details-row-deactivated tr{
+    color: red !important;
+}

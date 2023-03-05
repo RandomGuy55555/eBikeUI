@@ -1,0 +1,46 @@
+<div class="titleContainer">
+<!-- Title -->
+<h1 class="page-header">{{ header }}</h1>
+<br>
+<p>This site lists all rented bikes. You can return it to rent another one.</p>
+
+</div>
+
+<div class="tablecontainer">
+
+<table mat-table [dataSource]="rentedBikes" class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="bikeId">
+    <th mat-header-cell *matHeaderCellDef class = "tableheader"> BikeId </th>
+    <td mat-cell *matCellDef="let element"> {{element.bikeId}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef class = "tableheader"> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Return Option">
+    <th mat-header-cell *matHeaderCellDef class = "tableheader"> Return Option </th>
+    <td mat-cell *matCellDef="let element"> 
+      
+      <button
+        mat-raised-button
+        type="submit"
+        (click)="returnBike()"
+      >
+        Return Bike
+      </button>
+    
+    </td>
+  </ng-container>
+  
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+</div>

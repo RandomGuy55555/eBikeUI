@@ -1,0 +1,30 @@
+<div class="bike-details-wrapper">
+  <mat-list role="list">
+    <mat-list-item role="listitem">{{ latitudeLabel }} : {{ bike.latitude }}</mat-list-item>
+    <mat-list-item role="listitem">{{ longitudeLabel }}: {{ bike.longitude }}</mat-list-item>
+  </mat-list>
+</div>
+
+<div class="bikeBtns">
+  <div
+    id="div-button-container"
+    class="bike-details-button horizontal-margins-small"
+  >
+    <button
+      mat-raised-button color="warn"
+      type="submit"
+      [disabled]="isRented()"
+      id="rentbutton"
+      (click)="rentBike()"
+    >
+      Rent
+    </button>
+    <button
+      mat-raised-button color="warn"
+      type="submit"
+      (click)="closeDetailsRow()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="titleContainer">
+<!-- Title -->
+<h1 class="page-header">{{ header }}</h1>
+<br>
+<p>This site lists all bikes in the database. Click on a bike to open details and rent it. You can only rent one bike at a time.</p>
+
+</div>
+
+<div class="tablecontainer">
+<!-- Table definition -->
+<table
+  mat-table
+  matSort
+  multiTemplateDataRows
+  class="mat-elevation-z8"
+  aria-describedby="table-description"
+  [dataSource]="bikesDataSource"
+>
+  <!-- Column Headers -->
+  <tr
+    mat-header-row
+    *matHeaderRowDef="displayedColumns; sticky: true"
+    style="border-bottom: 2px solid black"
+  ></tr>
+
+  <!-- Columns Data Definition -->
+  <ng-container
+    *ngFor="let column of displayedColumns; let i = index"
+    matColumnDef="{{ column }}"
+    [ngSwitch]="column"
+    >
+
+    <span *ngSwitchDefault>
+
+      <th
+      mat-sort-header
+      mat-header-cell
+      *matHeaderCellDef
+      class = "tableheader"
+      scope="col"
+    >
+      {{ columnHeaders[i] }}
+    </th>
+    <td mat-cell *matCellDef="let element" id="{{ column }}">
+      {{ element[column] }}
+    </td>
+    </span>
+
+    <span *ngSwitchCase="'rented'">
+
+      <th
+      mat-sort-header
+      mat-header-cell
+      *matHeaderCellDef
+      class = "tableheader"
+      scope="col"
+    >
+      {{ columnHeaders[i] }}
+    </th>
+    <td mat-cell *matCellDef="let element" id="{{ column }}">
+      <mat-slide-toggle [checked] = "!element[column]" [disabled]="true"> </mat-slide-toggle>
+    </td>
+    </span>
+    
+  </ng-container>
+
+  <!-- Open Bike Row Details -->
+  <tr
+    mat-row
+    *matRowDef="let element; columns: displayedColumns"
+    class="bike-details-row"
+    [ngClass]="[
+      (element.rented === true ? 'bike-details-row-deactivated' : '')
+    ]"
+    (click)="toggleDetails(element)"
+  ></tr>
+  <!-- Open Bike Column Details -->
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['expandedBikeDetails']"
+    [@detailExpand]="toggleExpandedClass(row)"
+  ></tr>
+  <!-- Bike Row Details -->
+  <ng-container matColumnDef="expandedBikeDetails">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [attr.colspan]="displayedColumns.length"
+    >
+      <div
+        class="bike-details-content"
+        id="bike-details-content-div-for-edit"
+        [@detailExpand]="toggleExpandedClass(element)"
+        *ngIf="isExpanded(element)"
+      >
+        <bike-details [bike]="element" (closeRow)="toggleDetails(element)">
+        </bike-details>
+      </div>
+    </td>
+  </ng-container>
+</table>
+</div>
